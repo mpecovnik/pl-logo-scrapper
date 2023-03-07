@@ -1,0 +1,8 @@
+beautifulsoup4
+black
+isort
+pytest
+jupyterlab
+pydantic
+mypy
+pylint
