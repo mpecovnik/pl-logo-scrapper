@@ -116,7 +116,7 @@ if __name__ == "__main__":
     }
 
     pages = Pages.from_urls(url_filters=url_filters)
-    pages.save_report("./temp/")
+    pages.save_report("./")
 
 
 def test_customer_search():
