@@ -117,3 +117,24 @@ if __name__ == "__main__":
 
     pages = Pages.from_urls(url_filters=url_filters)
     pages.save_report("./temp/")
+
+
+def test_customer_search():
+    def deel_call_filter(found: ResultSet) -> bool:
+        previous_class = found.find_previous().get("class")
+        return previous_class and previous_class[0] == "single-image"
+
+    deel_filter = HtmlFilter(by="img", attr_filters={"loading": "lazy"}, call_filter=deel_call_filter)
+
+    url_filters = {
+        "https://www.deel.com/": deel_filter,
+    }
+
+    obj = Pages.from_urls(url_filters=url_filters)
+
+    assert len(obj.pages) == 1
+
+    deel_page = obj.pages.pop("https://www.deel.com/", None)
+
+    assert isinstance(deel_page, Page)
+    assert len(deel_page.customers) == 13
