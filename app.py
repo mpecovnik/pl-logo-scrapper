@@ -4,7 +4,7 @@ from urllib import parse, request
 
 import pydantic
 from bs4 import BeautifulSoup, ResultSet
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 FilterCallableT = Callable[[ResultSet], bool]
 
@@ -22,7 +22,7 @@ class Customer(BaseModel):
 
 class Page(BaseModel):
     url: str
-    customers: Optional[List[Customer]] = Field(default_factory=list)
+    customers: Optional[List[Customer]] = None
 
     @staticmethod
     def get_soup(url: str) -> BeautifulSoup:
