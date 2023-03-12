@@ -10,12 +10,16 @@ FilterCallableT = Callable[[ResultSet], bool]
 
 
 class HtmlFilter(BaseModel):
+    """General filter class to serve as an interface for specific implementations. It allows filtering by a specific element name, on its attributes, and also a callable more complex filter can be provided if needed"""
+
     by: str
     attr_filters: Optional[Dict[str, str]] = None
     call_filter: Optional[FilterCallableT] = None
 
 
 class Customer(BaseModel):
+    """Representation of a customer of a page with a name and logo. Other attributes if needed could also be added here."""
+
     company: str
     logo_url: str
 
@@ -24,6 +28,8 @@ class Page(BaseModel):
     url: str
     customers: Optional[List[Customer]] = None
 
+    # this should have been done with composition to make testing easier, since you could have a HTML-from-URL parser,
+    # a HTML-from-local parser etc all built on the same interface. Then it testing you would just provide the HTML-from-local parser.
     @staticmethod
     def get_soup(url: str) -> BeautifulSoup:
         return BeautifulSoup(request.urlopen(url).read(), "html.parser")
