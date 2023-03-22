@@ -1,5 +1,3 @@
-# predict-leads
-
 Repo with an app to scrape logos of companies from various sites to eventually build a graph of buyer-seller relationships. Built primarily for the `predict-leads` take-home assignment.
 
 ## First part of the assignment
